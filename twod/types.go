@@ -44,7 +44,7 @@ func (d *Dense) Norm(o NormType) float64 {
 	}
 }
 
-func (d Dense) Dense() Dense {
+func (d Dense) Dense2d() Dense {
 	return d
 }
 
@@ -89,7 +89,7 @@ func (s *Symmetric) Set(i, j int, v float64) {
 	return
 }
 
-func (s Symmetric) Dense() Dense {
+func (s Symmetric) Dense2d() Dense {
 	return Dense{
 		{s[0], s[1]},
 		{s[1], s[2]},
@@ -137,7 +137,7 @@ func (s SkewSymmetric) At(i, j int) float64 {
 	}
 }
 
-func (s SkewSymmetric) Dense() Dense {
+func (s SkewSymmetric) Dense2d() Dense {
 	return Dense{
 		{0, float64(s)},
 		{-float64(s), 0},

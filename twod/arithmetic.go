@@ -2,8 +2,8 @@ package twod
 
 // returns a * b
 func Mul(a, b Denser) Dense {
-	c := a.Dense()
-	d := b.Dense()
+	c := a.Dense2d()
+	d := b.Dense2d()
 
 	d00 := c[0][0]*d[0][0] + c[0][1]*d[1][0]
 	d01 := c[0][0]*d[0][1] + c[0][1]*d[1][1]
