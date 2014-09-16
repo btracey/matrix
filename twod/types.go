@@ -39,6 +39,8 @@ func (d *Dense) Norm(o NormType) float64 {
 	case Frobenius:
 		sum := d[0][0]*d[0][0] + d[0][1]*d[0][1] + d[1][0]*d[1][0] + d[1][1]*d[1][1]
 		return math.Sqrt(sum)
+	case Frobenius2:
+		return d.Norm(Frobenius) * math.Sqrt2
 	default:
 		panic(panicUnknownNorm)
 	}
@@ -101,6 +103,8 @@ func (s Symmetric) Norm(o NormType) float64 {
 	case Frobenius:
 		sum := s[0]*s[0] + 2*s[1]*s[1] + s[2]*s[2]
 		return math.Sqrt(sum)
+	case Frobenius2:
+		return math.Sqrt2 * s.Norm(Frobenius)
 	default:
 		panic(panicUnknownNorm)
 	}
@@ -141,5 +145,18 @@ func (s SkewSymmetric) Dense2d() Dense {
 	return Dense{
 		{0, float64(s)},
 		{-float64(s), 0},
+	}
+}
+
+func (s SkewSymmetric) Norm(o NormType) float64 {
+	switch o {
+	case Frobenius:
+		v := float64(s) * float64(s)
+		return math.Sqrt(2 * v)
+	case Frobenius2:
+		v := float64(s) * float64(s)
+		return math.Sqrt(4 * v)
+	default:
+		panic(panicUnknownNorm)
 	}
 }

@@ -17,5 +17,6 @@ type Denser interface {
 type NormType int
 
 const (
-	Frobenius = iota
+	Frobenius  = iota // Computes sqrt(A_ij A_ij)
+	Frobenius2        // Computes sqrt(2 * A_ij A_ij)
 )
