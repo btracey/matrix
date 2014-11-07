@@ -34,7 +34,7 @@ func (d *Dense) Set(i, j int, v float64) {
 	d[i][j] = v
 }
 
-func (d *Dense) Norm(o NormType) float64 {
+func (d Dense) Norm(o NormType) float64 {
 	switch o {
 	case Frobenius:
 		sum := d[0][0]*d[0][0] + d[0][1]*d[0][1] + d[1][0]*d[1][0] + d[1][1]*d[1][1]
@@ -44,6 +44,11 @@ func (d *Dense) Norm(o NormType) float64 {
 	default:
 		panic(panicUnknownNorm)
 	}
+}
+
+// Det returns the determinant of the matrix
+func (d Dense) Det() float64 {
+	return d[0][0]*d[1][1] - d[0][1]*d[1][0]
 }
 
 func (d Dense) Dense2d() Dense {
@@ -56,6 +61,11 @@ func (d Dense) Split() (Symmetric, SkewSymmetric) {
 	s := Symmetric{d[0][0], offDiag, d[1][1]}
 
 	return s, SkewSymmetric((d[0][1] - d[1][0]) / 2)
+}
+
+func (d Dense) SymmetricPart() Symmetric {
+	offDiag := (d[1][0] + d[0][1]) / 2
+	return Symmetric{d[0][0], offDiag, d[1][1]}
 }
 
 //  represents a two-dimensional tensor
